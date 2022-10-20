@@ -18,6 +18,7 @@ fun main() {
 //확장 함수
 // 확장함수와 멤버함수의 이름이 동일하면 멤버함수가 우선적으로 호출된다)
 // 확장함수는 현재 타입 기준으로 호출
+// java에서 호출 하는 방법은 java class에 있음
 fun String.lastChar(): Char { //String : 확장하려는 클래스
     return this[this.length - 1] //this : 수신객체
 }
