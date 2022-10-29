@@ -50,25 +50,25 @@ fun testA() {
     }
 }
 
-fun getNumberOrNull(): Int? {
-    return if (number <= 0) {
-        null
-    } else {
-        number
-    }
-}
+//fun getNumberOrNull(): Int? {
+//    return if (number <= 0) {
+//        null
+//    } else {
+//        number
+//    }
+//}
 
-fun getNumberOrNull2(): Int? {
-    //takeIf : 주어진 조건에 해당하면 값/ 해당하지 않으면 null 리턴
-    //조건 : true -> 응답값
-    //조건 : false -> null
-    return number.takeIf{ it > 0 }
-}
+//fun getNumberOrNull2(): Int? {
+//    //takeIf : 주어진 조건에 해당하면 값/ 해당하지 않으면 null 리턴
+//    //조건 : true -> 응답값
+//    //조건 : false -> null
+//    return number.takeIf{ it > 0 }
+//}
 
-fun getNumberOrNull3(): Int? {
-    //takeUnless : 주어진 조건을 만족하지 못하면 값/ 해당하지 않으면 null 리턴
-    //조건 : false -> 응답값
-    //조건 : true -> null
-    return number.takeUnless{ it <= 0 }
-}
+//fun getNumberOrNull3(): Int? {
+//    //takeUnless : 주어진 조건을 만족하지 못하면 값/ 해당하지 않으면 null 리턴
+//    //조건 : false -> 응답값
+//    //조건 : true -> null
+//    return number.takeUnless{ it <= 0 }
+//}
 
