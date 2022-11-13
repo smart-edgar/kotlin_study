@@ -12,7 +12,7 @@
 ```
 패키지
   - java/com.group.libraryapp
-  - kotlin/edgar.study.kotlin.starter
+  - kotlin/edgar.study.kotlin.libraryapp
 ```
 
 
