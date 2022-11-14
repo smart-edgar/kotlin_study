@@ -5,6 +5,8 @@ fun main() {
     test.plusTest()
     test.minusTest()
     test.multiplyTest()
+    test.divideTest()
+    test.divideFailTest()
 }
 
 
@@ -55,6 +57,35 @@ class CalculatorTest {
             println("multiplyTest 정상입니다.")
         } else {
             println("multiplyTest 실패입니다.")
+        }
+    }
+
+    fun divideTest() {
+        //given
+        val cals = Calculator(5)
+
+        //when
+        cals.divide(2)
+
+        //then
+        val prediction: Int = 2
+        if (prediction == cals.finish() && prediction == cals.number) {
+            println("divideTest 정상입니다.")
+        } else {
+            println("divideTest 실패입니다.")
+        }
+    }
+
+    fun divideFailTest() {
+        //given
+        val cals = Calculator(5)
+
+        //when
+        try {
+            cals.divide(0)
+            println("divideFailTest 실패입니다.")
+        } catch (e: IllegalArgumentException) {
+            println("divideFailTest 정상입니다.")
         }
     }
 }
