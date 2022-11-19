@@ -2,6 +2,8 @@ package edgar.study.kotlin.libraryapp.domain.user;
 
 import edgar.study.kotlin.libraryapp.domain.book.Book;
 import edgar.study.kotlin.libraryapp.domain.user.loanhistory.UserLoanHistory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,10 +59,12 @@ public class User {
     targetHistory.doReturn();
   }
 
+  @NotNull
   public String getName() {
     return name;
   }
 
+  @Nullable
   public Integer getAge() {
     return age;
   }
