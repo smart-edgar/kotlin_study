@@ -11,7 +11,7 @@ import javax.persistence.OneToMany
 
 
 @Entity
-class User(
+class User constructor(
     var name: String,
     val age: Int?,
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
