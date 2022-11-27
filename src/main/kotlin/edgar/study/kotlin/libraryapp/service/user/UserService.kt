@@ -5,6 +5,8 @@ import edgar.study.kotlin.libraryapp.domain.user.UserRepository
 import edgar.study.kotlin.libraryapp.dto.user.request.UserCreateRequest
 import edgar.study.kotlin.libraryapp.dto.user.request.UserUpdateRequest
 import edgar.study.kotlin.libraryapp.dto.user.response.UserResponse
+import edgar.study.kotlin.libraryapp.util.fail
+import edgar.study.kotlin.libraryapp.util.findByIdOrNullThrow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -29,13 +31,13 @@ class UserService constructor(
 
     @Transactional
     fun updateUserName(request: UserUpdateRequest) {
-        val user = userRepository.findById(request.id).orElseThrow(::IllegalArgumentException)
+        val user = userRepository.findByIdOrNullThrow(request.id)
         user.updateName(request.name)
     }
 
     @Transactional
     fun deleteUser(name: String) {
-        val user = userRepository.findByName(name).orElseThrow(::IllegalArgumentException)
+        val user = userRepository.findByName(name) ?: fail()
         userRepository.delete(user)
     }
 }
