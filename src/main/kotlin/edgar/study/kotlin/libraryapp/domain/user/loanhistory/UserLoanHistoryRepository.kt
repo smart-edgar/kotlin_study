@@ -1,9 +1,10 @@
 package edgar.study.kotlin.libraryapp.domain.user.loanhistory
 
+import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import org.springframework.data.jpa.repository.JpaRepository
 
 
 interface UserLoanHistoryRepository: JpaRepository<UserLoanHistory, Long> {
 
-    fun findByBookNameAndIsReturn(bookName: String, isReturn: Boolean): UserLoanHistory?
+    fun findByBookNameAndStatus(bookName: String, status: UserLoanStatus): UserLoanHistory?
 }

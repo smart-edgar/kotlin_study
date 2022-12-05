@@ -10,6 +10,7 @@ import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
 import edgar.study.kotlin.libraryapp.type.BookType
+import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
@@ -64,7 +65,7 @@ class BookServiceTest @Autowired constructor(
 
         assertThat(loanBook).hasSize(1)
         assertThat(loanBook[0].bookName).isEqualTo("대출북")
-        assertThat(loanBook[0].isReturn).isFalse
+        assertThat(loanBook[0].status).isEqualTo(UserLoanStatus.LOANED)
         assertThat(loanBook[0].user.name).isEqualTo("유저1")
     }
 
@@ -102,7 +103,7 @@ class BookServiceTest @Autowired constructor(
         val returnBook = userLoanHistoryRepository.findAll()
         assertThat(returnBook).hasSize(1)
         assertThat(returnBook[0].bookName).isEqualTo("반납북")
-        assertThat(returnBook[0].isReturn).isTrue
+        assertThat(returnBook[0].status).isEqualTo(UserLoanStatus.RETURNED)
         assertThat(returnBook[0].user.name).isEqualTo("유저3")
     }
 }

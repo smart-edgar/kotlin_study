@@ -7,6 +7,7 @@ import edgar.study.kotlin.libraryapp.domain.user.loanhistory.UserLoanHistoryRepo
 import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
+import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import edgar.study.kotlin.libraryapp.util.fail
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -27,7 +28,7 @@ class BookService constructor(
     @Transactional
     fun loanBook(request: BookLoanRequest) {
         val book = bookRepository.findByName(request.bookName) ?: fail()
-        if (userLoanHistoryRepository.findByBookNameAndIsReturn(request.bookName, false) != null) {
+        if (userLoanHistoryRepository.findByBookNameAndStatus(request.bookName, UserLoanStatus.LOANED) != null) {
             fail("진작 대출되어 있는 책입니다")
         }
         val user = userRepository.findByName(request.userName) ?: fail()

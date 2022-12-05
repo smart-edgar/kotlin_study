@@ -1,6 +1,7 @@
 package edgar.study.kotlin.libraryapp.domain.user.loanhistory
 
 import edgar.study.kotlin.libraryapp.domain.user.User
+import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -12,12 +13,12 @@ class UserLoanHistory constructor(
     @ManyToOne
     val user: User,
     val bookName: String,
-    var isReturn: Boolean = false,
+    var status: UserLoanStatus = UserLoanStatus.LOANED,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 ) {
     fun doReturn() {
-        this.isReturn = true
+        this.status = UserLoanStatus.RETURNED
     }
 }
