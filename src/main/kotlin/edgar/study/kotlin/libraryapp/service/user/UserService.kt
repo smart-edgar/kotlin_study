@@ -4,7 +4,10 @@ import edgar.study.kotlin.libraryapp.domain.user.User
 import edgar.study.kotlin.libraryapp.domain.user.UserRepository
 import edgar.study.kotlin.libraryapp.dto.user.request.UserCreateRequest
 import edgar.study.kotlin.libraryapp.dto.user.request.UserUpdateRequest
+import edgar.study.kotlin.libraryapp.dto.user.response.BookHistoryResponse
+import edgar.study.kotlin.libraryapp.dto.user.response.UserLoanHistoryResponse
 import edgar.study.kotlin.libraryapp.dto.user.response.UserResponse
+import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import edgar.study.kotlin.libraryapp.util.fail
 import edgar.study.kotlin.libraryapp.util.findByIdOrNullThrow
 import org.springframework.stereotype.Service
@@ -39,5 +42,20 @@ class UserService constructor(
     fun deleteUser(name: String) {
         val user = userRepository.findByName(name) ?: fail()
         userRepository.delete(user)
+    }
+
+    @Transactional(readOnly = true)
+    fun getUsersLoanHistories(): List<UserLoanHistoryResponse> {
+        return userRepository.findAll().map { user ->
+            UserLoanHistoryResponse(
+                user.name,
+                user.userLoanHistories.map { userLoan ->
+                    BookHistoryResponse(
+                        userLoan.bookName,
+                        userLoan.status == UserLoanStatus.RETURNED
+                    )
+                }
+            )
+        }
     }
 }

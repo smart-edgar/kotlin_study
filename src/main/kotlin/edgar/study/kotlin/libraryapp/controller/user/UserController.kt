@@ -2,6 +2,7 @@ package edgar.study.kotlin.libraryapp.controller.user
 
 import edgar.study.kotlin.libraryapp.dto.user.request.UserCreateRequest
 import edgar.study.kotlin.libraryapp.dto.user.request.UserUpdateRequest
+import edgar.study.kotlin.libraryapp.dto.user.response.UserLoanHistoryResponse
 import edgar.study.kotlin.libraryapp.dto.user.response.UserResponse
 import edgar.study.kotlin.libraryapp.service.user.UserService
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -34,5 +35,10 @@ class UserController constructor(
     @DeleteMapping("/user")
     fun deleteUser(@RequestParam name: String) {
         userService.deleteUser(name)
+    }
+
+    @GetMapping("/user/loan")
+    fun getUsersLoanHistories(): List<UserLoanHistoryResponse> {
+        return userService.getUsersLoanHistories()
     }
 }
