@@ -3,7 +3,9 @@ package edgar.study.kotlin.libraryapp.controller.book
 import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
+import edgar.study.kotlin.libraryapp.dto.book.response.BookStatResponse
 import edgar.study.kotlin.libraryapp.service.book.BookService
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -26,5 +28,15 @@ class BookController constructor(
     @PutMapping("/book/return")
     fun returnBook(@RequestBody request: BookReturnRequest) {
         bookService.returnBook(request)
+    }
+
+    @GetMapping("/book/loan")
+    fun countLoanedBook(): Int {
+        return bookService.countLoanedBook()
+    }
+
+    @GetMapping("/book/stat")
+    fun getBookStat(): List<BookStatResponse> {
+        return bookService.getBookStat()
     }
 }

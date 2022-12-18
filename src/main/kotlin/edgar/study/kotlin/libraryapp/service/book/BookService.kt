@@ -7,6 +7,7 @@ import edgar.study.kotlin.libraryapp.domain.user.loanhistory.UserLoanHistoryRepo
 import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
+import edgar.study.kotlin.libraryapp.dto.book.response.BookStatResponse
 import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import edgar.study.kotlin.libraryapp.util.fail
 import org.springframework.stereotype.Service
@@ -39,5 +40,30 @@ class BookService constructor(
     fun returnBook(request: BookReturnRequest) {
         val user = userRepository.findByName(request.userName) ?: fail()
         user.returnBook(request.bookName)
+    }
+
+    @Transactional(readOnly = true)
+    fun countLoanedBook(): Int {
+        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED).size
+    }
+
+    @Transactional(readOnly = true)
+    fun getBookStat(): List<BookStatResponse> {
+        val bookStat = mutableListOf<BookStatResponse>()
+        val books = bookRepository.findAll()
+
+        for (book in books) {
+            val target = bookStat.firstOrNull {
+                dto -> book.type == dto.type
+            }
+
+            if (target == null) {
+                bookStat.add(BookStatResponse(book.type, 1))
+            } else {
+                target.plus()
+            }
+        }
+
+        return bookStat
     }
 }
