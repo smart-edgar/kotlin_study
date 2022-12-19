@@ -9,6 +9,7 @@ import edgar.study.kotlin.libraryapp.domain.user.loanhistory.UserLoanHistoryRepo
 import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
+import edgar.study.kotlin.libraryapp.dto.book.response.BookStatResponse
 import edgar.study.kotlin.libraryapp.type.BookType
 import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import org.assertj.core.api.Assertions.assertThat
@@ -105,5 +106,68 @@ class BookServiceTest @Autowired constructor(
         assertThat(returnBook[0].bookName).isEqualTo("반납북")
         assertThat(returnBook[0].status).isEqualTo(UserLoanStatus.RETURNED)
         assertThat(returnBook[0].user.name).isEqualTo("유저3")
+    }
+
+    @Test
+    @DisplayName("북 대출 권 수 : 정상")
+    fun countLoanedBookTest() {
+        //given
+        bookRepository.saveAll(listOf(
+            Book("조회북1", BookType.LANGUAGE),
+            Book("조회북2", BookType.LANGUAGE),
+            Book("조회북3", BookType.LANGUAGE)
+        ))
+        val saveUser = userRepository.save(User("유저4", 30))
+        userLoanHistoryRepository.saveAll(listOf(
+            UserLoanHistory(saveUser, "조회북1"),
+            UserLoanHistory(saveUser, "조회북2", UserLoanStatus.RETURNED)
+        ))
+
+        //when
+        val countBook = bookService.countLoanedBook()
+
+        //then
+        assertThat(countBook).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("북 타입 별 통게 : 정상")
+    fun getBookStatTest() {
+        //given
+        bookRepository.saveAll(listOf(
+            Book("통계1", BookType.LANGUAGE),
+            Book("통계2", BookType.COMPUTER),
+            Book("통계3", BookType.COMPUTER),
+            Book("통계4", BookType.ECONOMY),
+            Book("통계5", BookType.ECONOMY),
+            Book("통계6", BookType.ECONOMY),
+            Book("통계7", BookType.SCIENCE),
+            Book("통계8", BookType.SCIENCE),
+            Book("통계9", BookType.SCIENCE),
+            Book("통계10", BookType.SCIENCE),
+            Book("통계11", BookType.SOCIETY),
+            Book("통계12", BookType.SOCIETY),
+            Book("통계13", BookType.SOCIETY),
+            Book("통계14", BookType.SOCIETY),
+            Book("통계15", BookType.SOCIETY)
+        ))
+
+        //when
+        val bookStats = bookService.getBookStat()
+
+        //than
+        assertThat(bookStats).hasSize(5)
+        this.getBookStatTestThenCount(bookStats, BookType.LANGUAGE, 1)
+        this.getBookStatTestThenCount(bookStats, BookType.COMPUTER, 2)
+        this.getBookStatTestThenCount(bookStats, BookType.ECONOMY, 3)
+        this.getBookStatTestThenCount(bookStats, BookType.SCIENCE, 4)
+        this.getBookStatTestThenCount(bookStats, BookType.SOCIETY, 5)
+    }
+
+    private fun getBookStatTestThenCount(
+        bookStats: List<BookStatResponse>,
+        type: BookType,
+        count: Int) {
+        assertThat(bookStats.first { res -> res.type == type }.count).isEqualTo(count)
     }
 }

@@ -4,9 +4,5 @@ import edgar.study.kotlin.libraryapp.type.BookType
 
 data class BookStatResponse(
     val type: BookType,
-    var count: Int
-) {
-    fun plus() {
-        count++
-    }
-}
+    val count: Int
+)
