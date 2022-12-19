@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.spring") version "1.7.10"
     kotlin("plugin.jpa") version "1.7.10"
+    kotlin("kapt") version "1.7.10"
 }
 
 group = "edgar"
@@ -23,6 +24,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("com.querydsl:querydsl-jpa")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
