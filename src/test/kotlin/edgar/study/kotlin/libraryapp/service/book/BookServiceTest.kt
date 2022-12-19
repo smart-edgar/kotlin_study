@@ -167,7 +167,7 @@ class BookServiceTest @Autowired constructor(
     private fun getBookStatTestThenCount(
         bookStats: List<BookStatResponse>,
         type: BookType,
-        count: Int) {
+        count: Long ) {
         assertThat(bookStats.first { res -> res.type == type }.count).isEqualTo(count)
     }
 }

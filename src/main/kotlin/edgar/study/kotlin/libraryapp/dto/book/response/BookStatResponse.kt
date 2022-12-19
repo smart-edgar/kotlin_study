@@ -4,5 +4,5 @@ import edgar.study.kotlin.libraryapp.type.BookType
 
 data class BookStatResponse(
     val type: BookType,
-    val count: Int
+    val count: Long
 )
