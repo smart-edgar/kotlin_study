@@ -8,6 +8,7 @@ import edgar.study.kotlin.libraryapp.dto.book.request.BookLoanRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookRequest
 import edgar.study.kotlin.libraryapp.dto.book.request.BookReturnRequest
 import edgar.study.kotlin.libraryapp.dto.book.response.BookStatResponse
+import edgar.study.kotlin.libraryapp.repository.book.BookQueryDslRepository
 import edgar.study.kotlin.libraryapp.type.UserLoanStatus
 import edgar.study.kotlin.libraryapp.util.fail
 import org.springframework.stereotype.Service
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class BookService constructor(
     private val bookRepository: BookRepository,
+    private val bookQueryDslRepository: BookQueryDslRepository,
     private val userRepository: UserRepository,
     private val userLoanHistoryRepository: UserLoanHistoryRepository
 ) {
@@ -50,6 +52,6 @@ class BookService constructor(
     @Transactional(readOnly = true)
     fun getBookStat(): List<BookStatResponse> {
 
-        return bookRepository.getStats()
+        return bookQueryDslRepository.getStats()
     }
 }
