@@ -6,3 +6,7 @@ fun main() {
     val name = readLine() ?: return
     println("$prefix$name")
 }
+
+val text by lazy {
+
+}
