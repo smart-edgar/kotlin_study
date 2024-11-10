@@ -22,3 +22,10 @@
 패키지
   - kotlin/edgar.study.kotlin.perfect
 ```
+
+<h2>이펙티브 코틀린
+<h3> 2024. 11. 06 ~
+```
+패키지
+  - kotlin/edgar.study.kotlin.effective
+```
