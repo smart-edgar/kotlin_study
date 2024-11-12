@@ -1,4 +1,4 @@
-# 아이템9. use를 사용하여 리소스를 닫아라
+# 아이템09. use를 사용하여 리소스를 닫아라
 AutoCloseable을 상속받은 Closeable 인터페이스를 구현핟고 있는 리소스
 - InputStream / OutputStream
 - java.sql.Connection
