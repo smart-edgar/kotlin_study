@@ -1,6 +1,6 @@
 # 1장. 안정성
 - [아이템01. 가변성을 제한하라](item01/readme.md)
-- [아이템02. 변수의 스포크를 최소화하라](item02/readme.md)
+- [아이템02. 변수의 스코프를 최소화하라](item02/readme.md)
 - [아이템03. 최대한 플랫폼 타입을 사용하지 말라](item03/readme.md)
 - [아이템04. inferred 타입으로 리턴하지 말라](item04/readme.md)
 - [아이템05. 예외를 활용해 코드에 제한을 걸어라](item05/readme.md)
